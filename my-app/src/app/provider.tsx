@@ -7,16 +7,16 @@ import { createApolloClient } from '@/lib/apollo-client';
 import { setContext } from '@apollo/client/link/context';
 import theme from './theme';
 
-const authLink = setContext((_, { headers }) => {
+//const authLink = setContext((_, { headers }) => {
     // Get the token from localStorage or cookies
-    const token = localStorage.getItem('authToken');
-    return {
-        headers: {
-            ...headers,
-            Authorization: token ? `Bearer ${token}` : '',
-        },
-    };
-});
+//    const token = localStorage.getItem('authToken');
+//    return {
+//        headers: {
+//            ...headers,
+//            Authorization: token ? `Bearer ${token}` : '',
+//        },
+//    };
+//});
 
 const client = createApolloClient();
 
