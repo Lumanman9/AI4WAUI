@@ -1,6 +1,7 @@
 'use client';
 
 import {gql, useSubscription, useMutation} from '@apollo/client';
+import ProtectedRoute from '@/component/ProtectedRoute';
 import {
     Paper,
     Table,
@@ -105,8 +106,8 @@ export default function ExamplePage() {
     }
 
     return (
-        <>
-            <Card sx={{margin: '2rem'}}>
+        <ProtectedRoute>
+            <Card sx={{ margin: '2rem' }}>
                 <CardContent>
                     <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
                         <Typography variant="h5" component="h1">
@@ -118,11 +119,11 @@ export default function ExamplePage() {
                             onClick={handleClickOpen}
                             size="medium"
                         >
-                            <AddIcon/>
+                            <AddIcon />
                         </Fab>
                     </Box>
 
-                    <TableContainer component={Paper} sx={{maxHeight: 440}}>
+                    <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
                         <Table stickyHeader aria-label="patient tracking table">
                             <TableHead>
                                 <TableRow>
@@ -135,10 +136,10 @@ export default function ExamplePage() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {data?.dashboard_patienttracking.map((item) => (
+                                {data?.dashboard_patienttracking.map((item: PatientTrackingItem) => (
                                     <TableRow
                                         key={item.id}
-                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         hover
                                     >
                                         <TableCell>{item.id}</TableCell>
@@ -148,8 +149,8 @@ export default function ExamplePage() {
                                         <TableCell>{formatDate(item.updated_at)}</TableCell>
                                         <TableCell>
                                             {item.dashboard_imagedata && (
-                                                <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                                                    {item.dashboard_imagedata.map((imgData) => (
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                    {item.dashboard_imagedata.map((imgData: ImageData) => (
                                                         <div
                                                             key={imgData.id}
                                                             style={{
@@ -174,7 +175,6 @@ export default function ExamplePage() {
                 </CardContent>
             </Card>
 
-            {/* Add Record Dialog */}
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Add New Patient Tracking Record</DialogTitle>
                 <DialogContent>
@@ -185,7 +185,7 @@ export default function ExamplePage() {
                         type="text"
                         fullWidth
                         value={formData.description}
-                        onChange={(e) => setFormData({...formData, description: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     />
                     <TextField
                         margin="dense"
@@ -193,7 +193,7 @@ export default function ExamplePage() {
                         type="number"
                         fullWidth
                         value={formData.count}
-                        onChange={(e) => setFormData({...formData, count: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, count: e.target.value })}
                     />
                 </DialogContent>
                 <DialogActions>
@@ -206,6 +206,6 @@ export default function ExamplePage() {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </>
+        </ProtectedRoute>
     );
 }
